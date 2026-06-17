@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Employee Details - Employee Management System.">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="navbar-brand">
+        <!-- Modern Blue Logo Icon -->
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+        <span>Employee Management System</span>
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/add" class="nav-link">Add Employee</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <div class="details-container">
+      <!-- Back Link -->
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary-blue); font-size: 14px; font-weight: 600; text-decoration: none; margin-bottom: 20px; transition: color var(--transition-speed);">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Dashboard
+      </a>
+
+      <!-- Profile Details Card -->
+      <div class="details-card">
+        
+        <!-- Header: Avatar & Name/Title -->
+        <div class="details-header">
+          <div class="details-avatar">
+            <%= employee.name.split(' ').map(n => n[0]).join('') %>
+          </div>
+          <div class="details-meta">
+            <h2 class="details-name"><%= employee.name %></h2>
+            <span class="details-title"><%= employee.role %> &bull; <strong style="color: var(--primary-blue);"><%= employee.department %></strong></span>
+          </div>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="details-grid">
+          
+          <div class="details-item">
+            <span class="details-label">Employee ID</span>
+            <span class="details-value" style="font-family: monospace; background-color: #f1f3f5; padding: 2px 6px; border-radius: 4px; display: inline-block; width: max-content;"><%= employee.id %></span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Email Address</span>
+            <span class="details-value"><a href="mailto:<%= employee.email %>" style="color: var(--primary-blue); text-decoration: none;"><%= employee.email %></a></span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Department</span>
+            <span class="details-value"><%= employee.department %></span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Employment Status</span>
+            <span class="details-value">
+              <% if (employee.status === 'Active') { %>
+                <span class="badge badge-active">Active</span>
+              <% } else { %>
+                <span class="badge badge-onleave">On Leave</span>
+              <% } %>
+            </span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Experience Level</span>
+            <span class="details-value">
+              <% if (employee.experienceLevel === 'Experienced') { %>
+                <span class="badge" style="background-color: var(--primary-light); color: var(--primary-dark);">Experienced</span>
+              <% } else { %>
+                <span class="badge" style="background-color: #f3e8ff; color: #6b21a8;">Fresher</span>
+              <% } %>
+            </span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Hire Date</span>
+            <span class="details-value"><%= employee.hireDate %></span>
+          </div>
+
+          <div class="details-item">
+            <span class="details-label">Annual Salary</span>
+            <span class="details-value" style="font-weight: 600;"><%= employee.salary %></span>
+          </div>
+
+        </div>
+
+        <!-- Biography / Background Description (Graduation, Learning Path, etc.) -->
+        <div class="details-description-section">
+          <h3 class="details-description-title">Educational & Professional Background</h3>
+          <p class="details-description-text">
+            <%= employee.description || "No description or background history has been provided for this employee yet." %>
+          </p>
+        </div>
+
+        <!-- Actions -->
+        <div class="details-actions">
+          <a href="/" class="btn btn-secondary">Back</a>
+          <a href="/edit/<%= employee.id %>" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit Profile
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

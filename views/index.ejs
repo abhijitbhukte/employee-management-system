@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Employee Management System - Directory Dashboard.">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="navbar-brand">
+        <!-- Modern Blue Logo Icon -->
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+        <span>Employee Management System</span>
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/" class="nav-link active">Home</a></li>
+        <li><a href="/add" class="nav-link">Add Employee</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Page Title Header -->
+    <header class="page-header">
+      <h1>Dashboard</h1>
+      <p>Welcome to the Employee Management System. Monitor metrics, search records, and edit entries.</p>
+    </header>
+
+    <!-- Statistics Cards -->
+    <section class="stats-grid">
+      <!-- Card 1: Total Employees -->
+      <div class="stat-card">
+        <div class="stat-icon">
+          <!-- Users Icon -->
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Employees</span>
+          <span class="stat-value" id="stat-total-count"><%= stats.total %></span>
+        </div>
+      </div>
+
+      <!-- Card 2: IT Employees -->
+      <div class="stat-card">
+        <div class="stat-icon">
+          <!-- Code / IT Icon -->
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">IT Employees</span>
+          <span class="stat-value"><%= stats.itCount %></span>
+        </div>
+      </div>
+
+      <!-- Card 3: HR Employees -->
+      <div class="stat-card">
+        <div class="stat-icon">
+          <!-- HR / User Check Icon -->
+          <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="16 11 18 13 22 9"></polyline></svg>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">HR Employees</span>
+          <span class="stat-value"><%= stats.hrCount %></span>
+        </div>
+      </div>
+
+      <!-- Card 4: Average Salary -->
+      <div class="stat-card">
+        <div class="stat-icon">
+          <!-- Dollar Icon -->
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Average Salary</span>
+          <span class="stat-value"><%= stats.avgSalary %></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Directory Panel -->
+    <section class="directory-card">
+      <div class="directory-header">
+        <div class="directory-title">
+          <h2>Employee Directory</h2>
+          <p>Search and manage records of all company staff.</p>
+        </div>
+        
+        <a href="/add" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Add Employee
+        </a>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="directory-controls">
+        <div class="search-filter-wrapper">
+          <div class="search-box">
+            <!-- Search Icon -->
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="employee-search" placeholder="Search by name, email, or role...">
+          </div>
+
+          <select class="select-filter" id="dept-filter">
+            <option value="">All Departments</option>
+            <option value="IT">IT</option>
+            <option value="HR">HR</option>
+            <option value="Product">Product</option>
+            <option value="Design">Design</option>
+            <option value="Finance">Finance</option>
+          </select>
+
+          <select class="select-filter" id="status-filter">
+            <option value="">All Statuses</option>
+            <option value="Active">Active</option>
+            <option value="On Leave">On Leave</option>
+          </select>
+
+          <select class="select-filter" id="experience-filter">
+            <option value="">All Experience Levels</option>
+            <option value="Experienced">Experienced</option>
+            <option value="Fresher">Fresher</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Employee Table -->
+      <div class="table-responsive">
+        <table class="employee-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Role & Department</th>
+              <th>Experience</th>
+              <th>Hire Date</th>
+              <th>Salary</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="employee-table-body">
+            <% if (employees && employees.length > 0) { %>
+              <% employees.forEach(employee => { %>
+                <tr class="employee-row" 
+                    data-name="<%= employee.name.toLowerCase() %>" 
+                    data-role="<%= employee.role.toLowerCase() %>" 
+                    data-email="<%= employee.email.toLowerCase() %>" 
+                    data-department="<%= employee.department %>" 
+                    data-status="<%= employee.status %>"
+                    data-experience="<%= employee.experienceLevel %>">
+                  <td>
+                    <span class="emp-id-badge"><%= employee.id %></span>
+                  </td>
+                  <td>
+                    <span class="emp-name-cell"><%= employee.name %></span>
+                    <span class="emp-email-cell"><%= employee.email %></span>
+                  </td>
+                  <td>
+                    <span style="font-weight: 500; color: var(--text-main);"><%= employee.role %></span>
+                    <span style="font-size: 12px; color: var(--text-muted); display: block;"><%= employee.department %></span>
+                  </td>
+                  <td>
+                    <% if (employee.experienceLevel === 'Experienced') { %>
+                      <span class="badge" style="background-color: var(--primary-light); color: var(--primary-dark);">Experienced</span>
+                    <% } else { %>
+                      <span class="badge" style="background-color: #f3e8ff; color: #6b21a8;">Fresher</span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <span><%= employee.hireDate %></span>
+                  </td>
+                  <td>
+                    <span style="font-weight: 600; color: var(--text-main);"><%= employee.salary %></span>
+                  </td>
+                  <td>
+                    <% if (employee.status === 'Active') { %>
+                      <span class="badge badge-active">Active</span>
+                    <% } else { %>
+                      <span class="badge badge-onleave">On Leave</span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <div class="actions-cell">
+                      <a href="/details/<%= employee.id %>" class="btn-action" title="View Details">
+                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      </a>
+                      <a href="/edit/<%= employee.id %>" class="btn btn-secondary" style="height: 30px; padding: 0 12px; font-size: 12px; gap: 4px;" title="Edit Employee">
+                        <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        Edit
+                      </a>
+                      <button class="btn-action btn-action-delete" title="Delete Employee" onclick="deleteEmployee('<%= employee.id %>')">
+                        <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                  No employees found.
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Footer -->
+      <div class="table-footer">
+        <span class="pagination-text">Showing <span id="showing-count">7</span> of <span><%= stats.total %></span> employees</span>
+        <div class="pagination-buttons">
+          <button class="btn btn-secondary" disabled>Previous</button>
+          <button class="btn btn-secondary" disabled>Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Interactive Client-side Script (Search & Filter) -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("employee-search");
+      const deptFilter = document.getElementById("dept-filter");
+      const statusFilter = document.getElementById("status-filter");
+      const experienceFilter = document.getElementById("experience-filter");
+      const tableRows = document.querySelectorAll(".employee-row");
+      const showingCountEl = document.getElementById("showing-count");
+
+      function filterEmployees() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedDept = deptFilter.value;
+        const selectedStatus = statusFilter.value;
+        const selectedExperience = experienceFilter.value;
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+          const name = row.getAttribute("data-name") || "";
+          const role = row.getAttribute("data-role") || "";
+          const email = row.getAttribute("data-email") || "";
+          const dept = row.getAttribute("data-department") || "";
+          const status = row.getAttribute("data-status") || "";
+          const experience = row.getAttribute("data-experience") || "";
+
+          const matchesSearch = !query || name.includes(query) || role.includes(query) || email.includes(query);
+          const matchesDept = !selectedDept || dept === selectedDept;
+          const matchesStatus = !selectedStatus || status === selectedStatus;
+          const matchesExperience = !selectedExperience || experience === selectedExperience;
+
+          if (matchesSearch && matchesDept && matchesStatus && matchesExperience) {
+            row.style.display = "";
+            visibleCount++;
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        if (showingCountEl) {
+          showingCountEl.textContent = visibleCount;
+        }
+      }
+
+      searchInput.addEventListener("input", filterEmployees);
+      deptFilter.addEventListener("change", filterEmployees);
+      statusFilter.addEventListener("change", filterEmployees);
+      experienceFilter.addEventListener("change", filterEmployees);
+    });
+
+    // Delete employee permanently
+    function deleteEmployee(empId) {
+      if (confirm(`Warning: Are you sure you want to permanently delete employee ${empId}? This action cannot be undone.`)) {
+        fetch(`/delete/${empId}`, {
+          method: 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert(`Success: Employee ${empId} has been permanently deleted from the database.`);
+            // Reload page to refresh metrics, stats, and table lists
+            window.location.reload();
+          } else {
+            alert(`Error: ${data.message || 'Failed to delete employee.'}`);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("An error occurred while deleting the employee.");
+        });
+      }
+    }
+  </script>
+</body>
+</html>

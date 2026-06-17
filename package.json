@@ -1,0 +1,26 @@
+{
+  "name": "employee-management-system",
+  "version": "1.0.0",
+  "description": "A web-based Employee Management System built with Node.js, Express.js, HTML, CSS, and JavaScript. It provides CRUD operations, employee search, department filtering, salary statistics, and JSON-based data storage.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhijitbhukte/employee-management-system.git"
+  },
+  "keywords": [],
+  "author": "Abhijit Bhukte",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/abhijitbhukte/employee-management-system/issues"
+  },
+  "homepage": "https://github.com/abhijitbhukte/employee-management-system#readme",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  }
+}

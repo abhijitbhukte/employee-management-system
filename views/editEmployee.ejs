@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Edit Employee - Employee Management System.">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="/" class="navbar-brand">
+        <!-- Modern Blue Logo Icon -->
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2.5" fill="none"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+        <span>Employee Management System</span>
+      </a>
+      <ul class="navbar-nav">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/add" class="nav-link">Add Employee</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <div class="form-container">
+      <!-- Back Link -->
+      <a href="/" style="display: inline-flex; align-items: center; gap: 8px; color: var(--primary-blue); font-size: 14px; font-weight: 600; text-decoration: none; margin-bottom: 20px; transition: color var(--transition-speed);">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Dashboard
+      </a>
+
+      <!-- Form Card -->
+      <div class="form-card">
+        <h2 class="form-title">Edit Employee</h2>
+        <p class="form-subtitle">Modify the details below to update the record for <strong><%= employee.name %></strong>.</p>
+
+        <!-- Form (Simulated submission) -->
+        <form id="edit-employee-form" onsubmit="submitForm(event)">
+          
+          <div class="form-grid">
+            <!-- Employee ID (Readonly) -->
+            <div class="form-group">
+              <label class="form-label" for="employee-id">Employee ID</label>
+              <input type="text" class="form-control" id="employee-id" value="<%= employee.id %>" readonly style="background-color: #f1f3f5; cursor: not-allowed; font-weight: 500;">
+            </div>
+
+            <!-- Hire Date -->
+            <div class="form-group">
+              <label class="form-label" for="hire-date">Hire Date</label>
+              <input type="date" class="form-control" id="hire-date" value="<%= employee.hireDate %>" required>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="form-label" for="full-name">Full Name</label>
+              <input type="text" class="form-control" id="full-name" value="<%= employee.name %>" required>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" value="<%= employee.email %>" required>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Role / Designation -->
+            <div class="form-group">
+              <label class="form-label" for="role">Role / Designation</label>
+              <input type="text" class="form-control" id="role" value="<%= employee.role %>" required>
+            </div>
+
+            <!-- Department -->
+            <div class="form-group">
+              <label class="form-label" for="department">Department</label>
+              <select class="form-control" id="department" required>
+                <option value="IT" <%= employee.department === 'IT' ? 'selected' : '' %>>IT</option>
+                <option value="HR" <%= employee.department === 'HR' ? 'selected' : '' %>>HR</option>
+                <option value="Product" <%= employee.department === 'Product' ? 'selected' : '' %>>Product</option>
+                <option value="Design" <%= employee.department === 'Design' ? 'selected' : '' %>>Design</option>
+                <option value="Finance" <%= employee.department === 'Finance' ? 'selected' : '' %>>Finance</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Salary -->
+            <div class="form-group">
+              <label class="form-label" for="salary">Annual Salary (USD)</label>
+              <input type="text" class="form-control" id="salary" value="<%= employee.salary %>" required>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+              <label class="form-label" for="status">Employment Status</label>
+              <select class="form-control" id="status" required>
+                <option value="Active" <%= employee.status === 'Active' ? 'selected' : '' %>>Active</option>
+                <option value="On Leave" <%= employee.status === 'On Leave' ? 'selected' : '' %>>On Leave</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- Experience Level -->
+            <div class="form-group">
+              <label class="form-label" for="experience-level">Experience Level</label>
+              <select class="form-control" id="experience-level" required>
+                <option value="Experienced" <%= employee.experienceLevel === 'Experienced' ? 'selected' : '' %>>Experienced</option>
+                <option value="Fresher" <%= employee.experienceLevel === 'Fresher' ? 'selected' : '' %>>Fresher</option>
+              </select>
+            </div>
+            <!-- Spacer -->
+            <div class="form-group"></div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <a href="/" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              Save Changes
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Handle form submission with dynamic database save
+    function submitForm(event) {
+      event.preventDefault();
+      
+      const empId = document.getElementById("employee-id").value;
+      const name = document.getElementById("full-name").value;
+      const email = document.getElementById("email").value;
+      const role = document.getElementById("role").value;
+      const department = document.getElementById("department").value;
+      const salary = document.getElementById("salary").value;
+      const status = document.getElementById("status").value;
+      const experienceLevel = document.getElementById("experience-level").value;
+      const hireDate = document.getElementById("hire-date").value;
+      
+      const payload = {
+        name,
+        email,
+        role,
+        department,
+        salary,
+        status,
+        experienceLevel,
+        hireDate
+      };
+      
+      fetch(`/edit/${empId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert(`Success!\n\nChanges for employee "${name}" (${empId}) have been permanently saved.`);
+          window.location.href = "/";
+        } else {
+          alert(`Error: ${data.message || 'Failed to update employee.'}`);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("An error occurred while updating the employee.");
+      });
+    }
+  </script>
+</body>
+</html>
